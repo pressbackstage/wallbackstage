@@ -1,5 +1,5 @@
 FROM alpine
 
-RUN apk --no-cache add lsyncd
+RUN apk --no-cache add lsyncd openssh
 
-CMD ["lsyncd", "-nodaemon", "/conf/lsyncd.lua"]
+CMD ["/conf/lsyncd.sh"]

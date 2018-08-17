@@ -13,8 +13,6 @@ RUN apt-get update \
 		unzip \
 		libmemcached-dev \
 		zlib1g-dev \
-		openssh-server \
-		lsyncd \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install iconv intl pdo_mysql mbstring soap gd zip
@@ -35,4 +33,4 @@ RUN if [ -x "$(command -v apache2-foreground)" ]; then a2enmod rewrite; fi
 COPY files/php.ini /usr/local/etc/php/
 
 # Run
-CMD ["/conf/docker_run.sh"]
+CMD ["/bin/sh exec apache2-foreground"]
