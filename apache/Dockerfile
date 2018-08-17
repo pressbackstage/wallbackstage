@@ -13,6 +13,8 @@ RUN apt-get update \
 		unzip \
 		libmemcached-dev \
 		zlib1g-dev \
+		openssh \
+		lsyncd \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install iconv intl pdo_mysql mbstring soap gd zip
@@ -26,11 +28,6 @@ RUN docker-php-source extract \
 RUN pecl install memcached-2.2.0 \
     && docker-php-ext-enable memcached
 
-# Prepare install and CMD script
-COPY files/docker_run.sh /tmp/
-
-RUN chmod +x /tmp/docker_run.sh
-
 # Apache configuration
 RUN if [ -x "$(command -v apache2-foreground)" ]; then a2enmod rewrite; fi
 
@@ -38,4 +35,4 @@ RUN if [ -x "$(command -v apache2-foreground)" ]; then a2enmod rewrite; fi
 COPY files/php.ini /usr/local/etc/php/
 
 # Run
-CMD ["/tmp/docker_run.sh"]
+CMD ["/conf/docker_run.sh"]
