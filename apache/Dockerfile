@@ -31,6 +31,3 @@ RUN if [ -x "$(command -v apache2-foreground)" ]; then a2enmod rewrite; fi
 
 # PHP configuration
 COPY files/php.ini /usr/local/etc/php/
-
-# Run
-CMD ["/conf/entrypoint.sh"]
